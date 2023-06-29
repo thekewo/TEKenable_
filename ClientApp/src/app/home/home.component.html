@@ -1,0 +1,48 @@
+<div>
+  <form [formGroup]="angForm" novalidate (ngSubmit)="submitNewsletter(angForm)">
+    <div class="form-group">
+      <label>Email</label>
+      <input class="form-control" formControlName="email" type="email" ngModel email>
+    </div>
+    <div *ngIf="angForm!.controls['email'].invalid && (angForm!.controls['email'].dirty || angForm!.controls['email'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm!.controls['email'].errors.required">
+        Email is required.
+      </div>
+      <div *ngIf="angForm!.controls['email'].errors.email">
+        Email is not valid.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>How they heard about us</label>
+      <select class="form-control" formControlName="contactSource" type="text">
+        <option>Advert</option>
+        <option>Word of Mouth</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div *ngIf="angForm!.controls['contactSource'].invalid && (angForm!.controls['contactSource'].dirty || angForm!.controls['contactSource'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm!.controls['contactSource'].errors.required">
+        Contact source is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Reason for signing up</label>
+      <input class="form-control" formControlName="contactReason" type="text">
+    </div>
+    <div *ngIf="angForm!.controls['contactReason'].invalid && (angForm!.controls['contactReason'].dirty || angForm!.controls['contactReason'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm!.controls['contactReason'].errors.required">
+        Contact reason is required.
+      </div>
+    </div>
+    <button type="submit"
+            [disabled]="angForm!.pristine || angForm!.invalid" class="btn btn-success">
+      Submit
+    </button>
+    <div *ngIf="isEmailDuplicate && isSubmitted" class="alert alert-danger">
+      Email is already in the database.
+    </div>
+    <div *ngIf="!isEmailDuplicate && isSubmitted" class="alert alert-success">
+      You signed up to the newsletter.
+    </div>
+  </form>
+</div>
